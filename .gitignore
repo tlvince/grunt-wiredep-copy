@@ -2,3 +2,5 @@ node_modules
 npm-debug.log
 tmp
 test/fixtures/bower_components
+*.sublime-project
+*.sublime-workspace
