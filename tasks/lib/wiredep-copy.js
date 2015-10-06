@@ -1,7 +1,8 @@
 'use strict';
 
 var _ = require('lodash'),
-    wirdep = require('wiredep');
+    wirdep = require('wiredep'),
+    fs = require('fs');
 
 module.exports = {
   collate: function(opts) {
@@ -12,6 +13,8 @@ module.exports = {
       .value();
   },
   rename: function(file, options) {
-    return file.replace(options.src, options.dest);
+    var src = fs.realpathSync(options.src);
+    var dest = fs.realpathSync(options.dest);
+    return file.replace(src, dest);
   }
 };
