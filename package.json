@@ -1,6 +1,6 @@
 {
   "name": "grunt-wiredep-copy",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Copies dependencies managed by wiredep",
   "homepage": "https://github.com/tlvince/grunt-wiredep-copy",
   "repository": {
