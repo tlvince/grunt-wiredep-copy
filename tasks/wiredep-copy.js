@@ -21,6 +21,10 @@ module.exports = function(grunt) {
     });
 
     var dependencies = wiredepCopy.collate(options.wiredep);
+    // maybe more of the pre-checks: file exists but not a directory, ...
+    if (options.dest != '.' && !grunt.file.isDir(options.dest)) {
+      grunt.file.mkdir(options.dest);
+    }
     dependencies.forEach(function(dependency) {
       var dest = wiredepCopy.rename(dependency, options);
       grunt.file.copy(dependency, dest);
