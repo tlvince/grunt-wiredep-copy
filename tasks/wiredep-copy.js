@@ -11,20 +11,28 @@
 var _ = require('lodash'),
     wiredepCopy = require('./lib/wiredep-copy');
 
-module.exports = function(grunt) {
-  grunt.registerMultiTask('wiredepCopy', 'Copies dependencies managed by wiredep', function() {
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      src: '.',
-      dest: '.',
-      wiredep: {}
-    });
+module.exports = function (grunt) {
+    grunt.registerMultiTask('wiredepCopy', 'Copies dependencies managed by wiredep', function () {
 
-    var dependencies = wiredepCopy.collate(options.wiredep);
-    dependencies.forEach(function(dependency) {
-      var dest = wiredepCopy.rename(dependency, options);
-      grunt.file.copy(dependency, dest);
-      grunt.log.writeln(dependency + ' -> ' + dest);
+        // Merge task-specific and/or target-specific options with these defaults.
+        var options = this.options({
+            src: '.',
+            dest: '.',
+            wiredep: {}
+        });
+
+        var dependencies = wiredepCopy.collate(options.wiredep);
+        dependencies.forEach(function (dependency) {
+            
+            if (!grunt.file.exists(options.dest)) {
+                grunt.file.mkdir(options.dest);
+            }
+
+            var dest = wiredepCopy.rename(dependency, options);
+            dest = options.dest + dest.replace(options.src, '');
+
+            grunt.file.copy(dependency, dest);
+            grunt.log.writeln(dependency + ' -> ' + dest);
+        });
     });
-  });
 };
